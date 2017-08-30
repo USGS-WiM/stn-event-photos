@@ -1,6 +1,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 
   <title>STN Event Photos</title>
   <meta name="description" content="View photos from STN">
@@ -15,9 +16,14 @@
   <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
+
+  <!--LEAFLET-->
+  <!--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>-->
 </head>
 
 <body>
+
 
 
   <div class="usgs-header">
@@ -26,38 +32,69 @@
     </a>
   </div>
 
-  <div class="photo-grid">
-    <div id="test" class="grid-item" style="background-image: url(https://placeimg.com/300/300/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/301/300/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/302/300/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/303/300/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/304/300/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/305/300/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/306/300/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/307/300/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/308/300/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/309/300/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/300/301/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/300/302/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/300/303/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/300/304/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/300/305/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/300/306/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/300/307/nature);"></div>
-    <div class="grid-item" style="background-image: url(https://placeimg.com/300/308/nature);"></div>
+  <div class="app-header">
+    <div class="event">
+      <div>Event: <b id="eventName">Event Name</b></div>
+    </div>
+    <div class="event-date">
+      &nbsp;
+    </div>
+    <div class="change-event" onclick="toggleEventPicker();">
+      Change Event
+    </div>
   </div>
+
+
+  <div class="event-controls">
+    <select id="eventSelector">
+      <option>Select an event</option>
+    </select>
+    <h1>Popular Events</h1>
+    <button onclick="loadEventImages(180), presetName('Hurricane Harvey 2017')">Hurricane Harvey 2017</button>
+    <button onclick="loadEventImages(131), presetName('Hurricane Hermine 2016')">Hurricane Hermine 2016</button>
+    <button onclick="loadEventImages(135), presetName('Hurricane Matthew 2016')">Hurricane Matthew 2016</button>
+    <button onclick="loadEventImages(24), presetName('Hurricane Sandy 2012')">Hurricane Sandy 2012</button>
+  </div>
+
+  <div class="welcome">
+    <h1>STN Photo Viewer</h1>
+    <p>
+      The USGS Short-Term Network (STN) is a national-scale application and database designed to support USGS event-based sensor deployments and High-Water Mark (HWM) data collection efforts.
+      <br/><br/>
+      This application can be used to view images from STN events.
+    </p>
+  </div>
+
+
+  <div class="empty-set">
+    No photos found for this event.
+    <small>Please select another</small>
+  </div>
+
+  <div class="photo-grid" id="photoGrid">
+    <!--<div id="test" class="grid-item" style="background-image: url(https://placeimg.com/300/300/nature);"></div>-->
+  </div>
+
+ 
 
 
   <div class="photo-info">
     <div class="left close-info"></div>
 
     <div class="right">
-      <img class="full-image" src="https://placeimg.com/1505/900/nature"/>
-      <h1>Image Title</h1>
-      <p>This is the image description. It's a pretty cool image, huh?</p>
-      <a href="#">Download Full-Size Image</a>
+      <img src="media/close.png" class="close-photo-info"/>
+      <img id="fullImage" src="http://via.placeholder.com/900x400"/>
+      <div class="photo-details">
+        <p id="imageDescription">This is the photo description placeholder.</p>
+        <h2 id="imageDate">Date Placeholder</h2>
+        <a id="imageURL" href="#" target="_blank">Download Full-Size Image</a>
+      </div>
+      <!--<div id="mapDiv"></div>-->
     </div>
   </div>
+
+
+
 
 
 

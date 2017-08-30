@@ -1,12 +1,22 @@
 /*Main CSS File - universal Styles*/
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
 
 /*
 COLORS:
     Light blue: #F2F8FF
     USGS Header Blue: #00264C
-
 */
+
+
+*,
+*:hover,
+*:focus,
+*:active{
+    outline: none !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
 body,
 html{
@@ -15,7 +25,7 @@ html{
     padding: 0;
     margin: 0;
     background-color: #F2F8FF;
-    font-family: 'Lato', 'Helvetica Neue', sans-serif;
+    font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
 }
 
 
@@ -32,6 +42,143 @@ html{
     height: 70px;
 }
 
+/*Header & Event Controls*/
+
+.app-header{
+    display: none;
+    justify-content: space-between;
+    width: 100%;
+    height: 66px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 0 0 0 25px;
+    border-bottom: 1px solid rgba(0,0,50,0.08);
+}
+
+.app-header .event{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 22px;
+    box-sizing: border-box;
+    padding: 0 0;
+    font-weight: 200;
+    letter-spacing: 0.5px;
+    color: black;
+}
+.app-header .event b{
+    font-weight: 800;
+}
+
+.app-header .event-date{
+    flex-grow: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0 0 0 25px;
+    font-size: 14px;
+
+}
+.app-header .change-event{
+    background-color: #f1f1f1;
+    color: black;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    box-sizing: border-box;
+    padding: 0 25px;
+    display: flex;
+    justify-content: center;
+    transition: 0.2s;
+    flex-direction: column;
+}
+.app-header .change-event:hover{
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.1);
+    transition: 0.2s;
+}
+
+.event-controls{
+    display: block;
+    box-sizing: border-box;
+    padding: 55px 25px;
+    text-align: center;
+}
+
+.event-controls select{
+    display: block;
+    width: auto;
+    font-size: 18px;
+    margin: 0 auto;
+    background-color: white;
+    font-weight: 600;
+    border-radius: 0px;
+    box-sizing: border-box;
+    height: 50px;
+}
+.event-controls h1{
+    font-size: 14px;
+    font-weight: 400;
+    box-sizing: border-box;
+    padding: 20px 0 10px 0;
+}
+.event-controls button{
+    display: inline-block;
+    border: 3px;
+    background-color: #655EFE;
+    color: white;
+    margin: 0 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    font-weight: 400;
+    transition: 0.1s;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+.event-controls button:hover{
+    cursor: pointer;
+    background-color: blue;
+    transition: 0.1s;
+}
+
+/*Welcome*/
+.welcome{
+    display: block;
+    box-sizing: border-box;
+    padding: 35px 25px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+.welcome h1{
+    font-weight: 800;
+    font-size: 32px;
+    margin-bottom: 25px;
+}
+.welcome p{
+    font-size: 16px;
+    color: rgba(0,0,0,0.85);
+    line-height: 30px;
+
+}
+
+/*Empty Set/No Photos*/
+.empty-set{
+    display: none;
+    box-sizing: border-box;
+    padding: 60px 25px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 900;
+    color: rgba(0,20,50,0.5);
+}
+.empty-set small{
+    font-size: 18px;
+    display: block;
+    padding-top: 10px;
+    font-weight: 400;
+}
 
 /*Photo Grid*/
 .photo-grid{
@@ -60,6 +207,7 @@ html{
 }
 
 
+
 /*Info box on click*/
 .photo-info{
     position: fixed;
@@ -67,38 +215,51 @@ html{
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,10,30,0.8);
+    /*background-color: rgba(255,255,255,0.95);*/
+    background-color: rgba(0,10,10,0.98);
     display: none;
 }
 
 
-.photo-info .left{
-    flex-grow: 2;
-    min-width: 50px;
-}
 .photo-info .right{
     width: 90%;
-    max-width: 1000px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.9), 0 6px 6px rgba(0,0,0,0.9);
-    background-color: white;
+    margin: 0 auto;
     box-sizing: border-box;
-    padding: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-
-.photo-info .right .full-image{
+.photo-info .right .close-photo-info{
     display: block;
-    max-width: 100%;
-    max-height: 70%;
-    margin: 0 auto 45px auto;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 25px;
+    transition: 0.15s;
+    margin-left: 0px;
+    opacity: 0.45;
+    left: 25px;
+}
+.photo-info .right .close-photo-info:hover{
+    cursor: pointer;
+    opacity: 0.65;
+    transition: 0.15s;
 }
 
-.photo-info .right h1{
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: 0.25px;
+.photo-info .right #fullImage{
+    display: block;
+    max-width: 90%;
+    max-height: 70%;
+    margin: 15px auto 25px auto;
+}
+
+.photo-info .right .photo-details{
+    box-sizing: border-box;
+    padding: 0 25px;
+    color: white;
+    text-align: center;
 }
 .photo-info .right p{
     display: block;
@@ -106,9 +267,35 @@ html{
     padding: 10px 0 0 0;
     font-size: 20px;
     font-weight: 400;
-    color: rgba(0,0,0,0.85);
+    text-align: center;
+    color: white;
+}
+.photo-info .right h2{
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    color: rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    padding: 10px 0;
+    color: white;
 }
 .photo-info .right a{
     display: block;
-    margin-top: 15px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: white;
+}
+
+
+/*ARCGIS MAP*/
+#mapDiv{
+    height: 35vh;
+    width: 100vw;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background-color: white;
+}
+.leaflet-top, .leaflet-bottom{
+    display: none;
 }
