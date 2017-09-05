@@ -27,7 +27,7 @@ $(document).ready(function () {
 		loadEventImages(this.value);
 		$("#eventName").text($("#eventSelector option:selected").text());
 
-    // Show page loader --- DISABLED... too slow for now
+		// Show page loader --- DISABLED... too slow for now
 		// $(".page-loader").css("display", "flex").hide().fadeIn(150);
 	})
 
@@ -62,18 +62,18 @@ $(document).ready(function () {
 	var photoArray = [];
 
 
-	
+
 	// FILE PATH https://stn.wim.usgs.gov/STNServices/Files/[[FILENUMBER]]/Item
 	loadEventImages = function (event_id) {
 
 		$(".welcome").slideUp(150);
 		$(".app-header").css("display", "flex").hide().fadeIn(150);
-    $("#loadMorePhotos").show();
-    $(".photoCount").show();
-    
+		$("#loadMorePhotos").show();
+		$(".photoCount").show();
+
 
 		$(".photo-grid").html('');
-    photosLoaded = 1;
+		photosLoaded = 1;
 
 		// Load Event Images
 		var eventImages = $.parseJSON($.ajax({
@@ -101,62 +101,64 @@ $(document).ready(function () {
 			showEmptySet();
 		} else { // Else populate Array
 			for (var i = 0, l = eventImages.length; i < l; i++) {
-				// Check if file is image. Only add if image
+				// Check if file is image. Only add if image. Need to check, if only a site ID is present then it is not event specific
 				if (eventImages[i].filetype_id == 1) {
+					if (eventImages[i].hwm_id > 0 || eventImages[i].instrument_id > 0) {
 
-					// Get source ID
-					$.ajax({
-						type: "GET",
-						url: "https://stn.wim.usgs.gov/STNServices/Sources/" + eventImages[i].source_id + ".json",
-						dataType: 'json',
-						async: false,
-						success: function (fileSource) {
+						var fileData = {};
 
-							var fileData = {};
+						fileData.source_id = eventImages[i].source_id;
+						fileData.fileId = eventImages[i].file_id;
+						fileData.fileURL = "https://stn.wim.usgs.gov/STNServices/Files/" + fileData.fileId + "/Item";
+						fileData.fileType = eventImages[i].filetype_id;
 
-							fileData.fileId = eventImages[i].file_id;
-							fileData.fileURL = "https://stn.wim.usgs.gov/STNServices/Files/" + fileData.fileId + "/Item";
-							fileData.fileType = eventImages[i].filetype_id;
-
-							// Matching Agency Name with the File Source
-							var agencyName = agencyList.filter(function (agency) {
-								return agency.agency_id == fileSource.agency_id;
-							})[0].agency_name;
-
-							// Matching Site ID with the Event Image
-							var fileSite = eventSites.filter(function (site) {
-								return site.site_id == eventImages[i].site_id;
-							})[0];
-
-							// Handling the site description
-							var siteDesc = fileSite.site_description ? fileSite.site_description : "SITE DESCRIPTION";
-
-							// Formating the photo date
-							var photoDate = "";
-							if (eventImages[i].photo_date) {
-								var dateSplit1 = eventImages[i].photo_date.substring(0, eventImages[i].photo_date.indexOf('T'));
-								var dateSplit2 = dateSplit1.split('-');
-								var formattedDate = dateSplit2[1] + '/' + dateSplit2[2] + "/" + dateSplit2[0];
-								photoDate = formattedDate;
-							} else {
-								photoDate = "PHOTO DATE";
-							}
-							var cap = "Photo of " + eventImages[i].description + " at " + siteDesc + ", " + fileSite.county + ", " + fileSite.state + ", " + photoDate + ". " +
-								"Photograph by " + fileSource.source_name + ", " + agencyName + ".";
-
-							// Puting the the whole caption into the file descripton
-							fileData.fileDescription = cap;
-							/* fileData.fileDate = eventImages[i].file_date;
-							fileData.fileLat = eventImages[i].latitude_dd;
-							fileData.fileLong = eventImages[i].longitude_dd; */
+						// Matching Site ID with the Event Image
+						var fileSite = eventSites.filter(function (site) {
+							return site.site_id == eventImages[i].site_id;
+						})[0];
 
 
-							photoArray.push(fileData);
-							console.log(photoArray);
-						},
-						error: function (e) {
+						// Formating the photo date
+						var photoDate = "";
+						if (eventImages[i].photo_date) {
+							var dateSplit1 = eventImages[i].photo_date.substring(0, eventImages[i].photo_date.indexOf('T'));
+							var dateSplit2 = dateSplit1.split('-');
+							var formattedDate = dateSplit2[1] + '/' + dateSplit2[2] + "/" + dateSplit2[0];
+							photoDate = formattedDate;
+						} else {
+							photoDate = "PHOTO DATE";
 						}
-					});
+
+						// Handling the site description
+						if (fileSite != undefined) {
+							var siteDesc = fileSite.site_description ? fileSite.site_description : "SITE DESCRIPTION";
+							var siteCounty = fileSite.county;
+							var siteState = fileSite.state;
+							var siteNo = fileSite.site_no;
+						} else {
+							siteDesc = "Site Description Unknown";
+							siteCounty = "County Unknown";
+							siteState = "State Unknown";
+							siteNo = "Site Number Unknown";
+						}
+
+						var cap = "Photo of " + eventImages[i].description + " at " + siteDesc + ", " + siteCounty + ", " + siteState + ", " + photoDate + ". " +
+							"Photograph by ";
+
+						
+
+
+						// Puting the the whole caption into the file descripton
+						fileData.fileDescription = cap;
+						fileData.siteNumber = siteNo;
+						/* fileData.fileDate = eventImages[i].file_date;
+						fileData.fileLat = eventImages[i].latitude_dd;
+						fileData.fileLong = eventImages[i].longitude_dd; */
+
+
+						photoArray.push(fileData);
+					}
+
 				}
 			}
 			// Done loading array, populate photo grid
@@ -176,42 +178,63 @@ $(document).ready(function () {
 			$(".empty-set").slideUp(100);
 
 			for (var i = 0, l = photoArray.length; i < l; i++) {
-        if(i <= (12*photosLoaded) && i >+ (12*(photosLoaded-1))){
-				  $("#photoGrid").append($("<div class='grid-item' onclick='showPhotoDetails(" + i + ")' style='background-image: url(" + photoArray[i].fileURL + ");'></div>"));
-        }
+				if (i <= (12 * photosLoaded) && i > + (12 * (photosLoaded - 1))) {
+					$("#photoGrid").append($("<div class='grid-item' onclick='showPhotoDetails(" + i + ")' style='background-image: url(" + photoArray[i].fileURL + ");'></div>"));
+				}
 			}
 
-      $(".photoTotal").text((12*photosLoaded) + '/' + photoArray.length);
-		  // $(".page-loader").fadeOut(150);
+			$(".photoTotal").text((12 * photosLoaded) + '/' + photoArray.length);
+			// $(".page-loader").fadeOut(150);
 
 		}
 	}
 
-  //
-  // Load More Photos Button
-  //
-  var photosLoaded = 1;
-  $("#loadMorePhotos").click(function(){
-    photosLoaded++;
-    populatePhotoGrid();
+	//
+	// Load More Photos Button
+	//
+	var photosLoaded = 1;
+	$("#loadMorePhotos").click(function () {
+		photosLoaded++;
+		populatePhotoGrid();
 
-    // If end of array, hide button
-    if((photosLoaded*12)>=photoArray.length){
-      $("#loadMorePhotos").hide();
-      $(".photoTotal").text(photoArray.length + '/' + photoArray.length);
-      
-    }
-  });
+		// If end of array, hide button
+		if ((photosLoaded * 12) >= photoArray.length) {
+			$("#loadMorePhotos").hide();
+			$(".photoTotal").text(photoArray.length + '/' + photoArray.length);
+
+		}
+	});
 
 	// 
 	// Click Photo, Show details
 	// 
-	// 
 
 	showPhotoDetails = function (i) {
 		$("#fullImage").attr("src", photoArray[i].fileURL);
-		$("#imageDescription").text(photoArray[i].fileDescription);
-		$("#imageURL").attr("href", photoArray[i].fileURL)
+		$("#imageURL").attr("href", photoArray[i].fileURL);
+		$("#siteNo").text("Site Number: " + photoArray[i].siteNumber);
+
+		$.ajax({
+			type: "GET",
+			url: "https://stn.wim.usgs.gov/STNServices/Sources/" + photoArray[i].source_id + ".json",
+			dataType: 'json',
+			async: false,
+			success: function (fileSource) {
+
+				// Matching Agency Name with the File Source
+				var agencyName = agencyList.filter(function (agency) {
+					return agency.agency_id == fileSource.agency_id;
+				})[0].agency_name;
+
+				$("#imageDescription").text(photoArray[i].fileDescription + fileSource.source_name + ", " + agencyName + ".");
+
+			},
+			error: function (e) { //update image description for the text of it to be "unknown source/agency" 
+				$("#imageDescription").text(photoArray[i].fileDescription + " Source Name Unknown, Agency Name Unknown.");
+			}
+		});
+
+
 
 		// Date Formatting from OG Format (EX 2016-10-05T22:37:01.819)
 		/* var dateSplit1 = photoArray[i].fileDate.substring(0, photoArray[i].fileDate.indexOf('.'));
