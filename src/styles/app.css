@@ -126,7 +126,7 @@ html{
 .event-controls button{
     display: inline-block;
     border: 3px;
-    background-color: #655EFE;
+    background-color: #00264C;
     color: white;
     margin: 0 5px;
     font-size: 14px;
@@ -139,7 +139,7 @@ html{
 }
 .event-controls button:hover{
     cursor: pointer;
-    background-color: blue;
+    background-color: #003E7C;
     transition: 0.1s;
 }
 
@@ -206,6 +206,36 @@ html{
     transform: scale(1.05);
 }
 
+/*Photo Count*/
+.photoCount{
+    display: none;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 17px;
+    margin-bottom: 28px;
+    font-weight: 400;
+    color:rgba(0,0,0,0.4);
+}
+/*Load More Button*/
+#loadMorePhotos{
+    display: none;
+    margin: 5px auto 100px auto;
+    border: none;
+    background-color: #00264C;
+    box-sizing: border-box;
+    font-size: 14px;
+    padding: 10px 15px;
+    color: white;
+    font-weight: 500;
+    transition: 0.2s;
+    border-radius: 3px;
+}
+#loadMorePhotos:hover{
+    cursor: pointer;
+    background-color: #003E7C;
+    transition: 0.2s;
+}
+
 
 
 /*Info box on click*/
@@ -264,8 +294,9 @@ html{
 .photo-info .right p{
     display: block;
     box-sizing: border-box;
-    padding: 10px 0 0 0;
-    font-size: 20px;
+    padding: 10px 0 18px 0;
+    font-size: 16px;
+    line-height: 25px;
     font-weight: 400;
     text-align: center;
     color: white;
@@ -297,5 +328,29 @@ html{
     background-color: white;
 }
 .leaflet-top, .leaflet-bottom{
+    display: none;
+}
+
+/*
+Page Loader
+*/
+.page-loader{
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100vw; 
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,20,0.9);
+    color: white;
+    font-size: 20px;
+    background-image: url('../../media/thickpathanimated.svg');
+    background-size: 150px 150px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    padding: 180px 0 0 0;
     display: none;
 }

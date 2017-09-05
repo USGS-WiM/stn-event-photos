@@ -74,7 +74,16 @@
   <div class="photo-grid" id="photoGrid">
     <!--<div id="test" class="grid-item" style="background-image: url(https://placeimg.com/300/300/nature);"></div>-->
   </div>
-
+    
+  <!--Photo Total and Load More button-->
+  <div class="photoCount">
+    Showing <span class="photoTotal"></span> photos
+  </div>
+  <div style="text-align: center; width:100%">
+    <button id="loadMorePhotos">
+      Load More
+    </button>
+  </div>
  
 
 
@@ -86,7 +95,7 @@
       <img id="fullImage" src="http://via.placeholder.com/900x400"/>
       <div class="photo-details">
         <p id="imageDescription">This is the photo description placeholder.</p>
-        <h2 id="imageDate">Date Placeholder</h2>
+        <!-- <h2 id="imageDate">Date Placeholder</h2> -->
         <a id="imageURL" href="#" target="_blank">Download Full-Size Image</a>
       </div>
       <!--<div id="mapDiv"></div>-->
@@ -94,6 +103,11 @@
   </div>
 
 
+
+  <!--Page Loader-->
+  <div class="page-loader">
+    Loading...
+  </div>
 
 
 
