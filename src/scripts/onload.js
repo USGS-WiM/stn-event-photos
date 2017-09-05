@@ -235,7 +235,7 @@ $(document).ready(function () {
 		});
 
 
-
+		$("#footer").hide();
 		// Date Formatting from OG Format (EX 2016-10-05T22:37:01.819)
 		/* var dateSplit1 = photoArray[i].fileDate.substring(0, photoArray[i].fileDate.indexOf('.'));
 		var dateSplit2 = dateSplit1.split('T');
@@ -252,6 +252,7 @@ $(document).ready(function () {
 	// Close Photo Info
 	$(".close-info, .close-photo-info").click(function () {
 		$(".photo-info").fadeOut(150);
+		$("#footer").show();
 	});
 
 
