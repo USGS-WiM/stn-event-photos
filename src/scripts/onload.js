@@ -26,7 +26,11 @@ $(document).ready(function () {
 	$("#eventSelector").on('change', function () {
 		loadEventImages(this.value);
 		$("#eventName").text($("#eventSelector option:selected").text());
+
+    // Show page loader --- DISABLED... too slow for now
+		// $(".page-loader").css("display", "flex").hide().fadeIn(150);
 	})
+
 
 	// Event button override
 	presetName = function (eventName) {
@@ -64,8 +68,12 @@ $(document).ready(function () {
 
 		$(".welcome").slideUp(150);
 		$(".app-header").css("display", "flex").hide().fadeIn(150);
+    $("#loadMorePhotos").show();
+    $(".photoCount").show();
+    
 
 		$(".photo-grid").html('');
+    photosLoaded = 1;
 
 		// Load Event Images
 		var eventImages = $.parseJSON($.ajax({
@@ -166,11 +174,34 @@ $(document).ready(function () {
 		} else {
 			$(".event-controls").slideUp(150);
 			$(".empty-set").slideUp(100);
+
 			for (var i = 0, l = photoArray.length; i < l; i++) {
-				$("#photoGrid").append($("<div class='grid-item' onclick='showPhotoDetails(" + i + ")' style='background-image: url(" + photoArray[i].fileURL + ");'></div>"));
+        if(i <= (12*photosLoaded) && i >+ (12*(photosLoaded-1))){
+				  $("#photoGrid").append($("<div class='grid-item' onclick='showPhotoDetails(" + i + ")' style='background-image: url(" + photoArray[i].fileURL + ");'></div>"));
+        }
 			}
+
+      $(".photoTotal").text((12*photosLoaded) + '/' + photoArray.length);
+		  // $(".page-loader").fadeOut(150);
+
 		}
 	}
+
+  //
+  // Load More Photos Button
+  //
+  var photosLoaded = 1;
+  $("#loadMorePhotos").click(function(){
+    photosLoaded++;
+    populatePhotoGrid();
+
+    // If end of array, hide button
+    if((photosLoaded*12)>=photoArray.length){
+      $("#loadMorePhotos").hide();
+      $(".photoTotal").text(photoArray.length + '/' + photoArray.length);
+      
+    }
+  });
 
 	// 
 	// Click Photo, Show details
@@ -180,7 +211,7 @@ $(document).ready(function () {
 	showPhotoDetails = function (i) {
 		$("#fullImage").attr("src", photoArray[i].fileURL);
 		$("#imageDescription").text(photoArray[i].fileDescription);
-		/* $("#imageURL").attr("href", photoArray[i].fileURL) */
+		$("#imageURL").attr("href", photoArray[i].fileURL)
 
 		// Date Formatting from OG Format (EX 2016-10-05T22:37:01.819)
 		/* var dateSplit1 = photoArray[i].fileDate.substring(0, photoArray[i].fileDate.indexOf('.'));
