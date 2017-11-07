@@ -1,41 +1,61 @@
-# stn-event-photos
+![WiM](wimlogo.png)
+
+
+# [stn-event-photos](https://www.fws.gov/cbra/Maps/Mapper.html)
 
 Simple STN Event Photo viewer.
 
-.
+### Prerequisites
 
-## Stack
 - jQuery
 - CSS (No SASS or LESS)
 - [flexboxgrid.css](http://flexboxgrid.com/)
 
-## Development
+## Getting Started
+
 - No npm/gulp/bower/etc.
 - To run, simply open `index.html`
 - For faster development, use a live reload/server plugin with your text editor:
     - VS Code Plugin: https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
     - Atom Plugin: https://atom.io/packages/atom-live-server
 
-
 ## Deployment
+
 - Copy files then minify (if desired - not required)
 - Upload `index.html`, `/media`, and `/src` to S3. No build process required. 
 
+## Contributing
 
+Please read [CONTRIBUTING.md]() for details on the process for submitting pull requests to us. Please read [CODE_OF_CONDUCT.md]() for details on adhering by the [USGS Code of Scientific Conduct](https://www2.usgs.gov/fsp/fsp_code_of_scientific_conduct.asp).
 
-.
+## Versioning
 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/USGS-WiM/stn-event-photos/tags).
 
-### FILE BREAKDOWN
-- `index.html`: Main web page
-- `/media`: Static image files (Logos, icons, favicon, etc)
-- `/src/scripts`: Javascript files
-    - `/vendor`: Javascript Vendor files (JQuery) **DO NOT EDIT**
-    - `onload.js`: JQuery called on page load
-    - `services.js`: Loading images
-    - `ui.js`: Javascript UI Control (Popups, etc)
-- `/src/styles`: Stylesheets (CSS)
-    - `/vendor`: Vendor stylesheets & Libraries **(DO NOT EDIT)**
-    - `app.css`: All styles for the app. Will break down into smaller files if it gets too big. **ONLY EDIT THIS FILE**
+Advance the version when adding features, fixing bugs or making minor enhancement. Follow semver principles. To add tag in git, type git tag v{major}.{minor}.{patch}. Example: git tag v2.0.5
 
+To push tags to remote origin: `git push origin --tags`
 
+*Note that your alias for the remote origin may differ.
+
+## Authors
+
+* **[Mitch Samuels](https://www.usgs.gov/staff-profiles/mitch-a-samuels)**  - *Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
+* **[Tonia Roddick](https://www.usgs.gov/staff-profiles/tonia-m-roddick)**  - *Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
+* **[Lauren Privette](https://www.usgs.gov/staff-profiles/lauren-privette)**  - *Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
+
+See also the list of [contributors](https://github.com/USGS-WiM/stn-event-photos/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the Creative Commons CC0 1.0 Universal License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Suggested Citation
+In the spirit of open source, please cite any re-use of the source code stored in this repository. Below is the suggested citation:
+
+`This project contains code produced by the Web Informatics and Mapping (WiM) team at the United States Geological Survey (USGS). As a work of the United States Government, this project is in the public domain within the United States. https://wim.usgs.gov`
+
+## About WIM
+* This project authored by the [USGS WIM team](https://wim.usgs.gov)
+* WIM is a team of developers and technologists who build and manage tools, software, web services, and databases to support USGS science and other federal government cooperators.
+* WiM is a part of the [Upper Midwest Water Science Center](https://www.usgs.gov/centers/wisconsin-water-science-center).

@@ -1,0 +1,48 @@
+[
+    {
+      "name": "stn-event-photos",
+      "organization": "U.S. Geological Survey",
+      "description": "Simple STN Event Photo viewer.",
+      "version": "v0.9.0",
+      "status": "Development",
+  
+      "permissions": {
+        "usageType": "openSource",
+        "licenses": [
+          {
+            "name": "Public Domain, CC0-1.0",
+            "URL": "https://github.com/usgs/best-practices/blob/master/LICENSE.md"
+          }
+        ]
+      },
+  
+      "homepageURL": "https://wim.usgs.gov",
+      "downloadURL": "https://github.com/USGS-WiM/stn-event-photos/archive/master.zip",
+      "disclaimerURL": "https://github.com/USGS-WiM/stn-event-photos/blob/master/LICENSE.md",
+      "repositoryUrl": "https://github.com/USGS-WiM/stn-event-photos",
+      "vcs": "git",
+  
+      "laborHours": null,
+  
+      "tags": [
+        "STN"
+      ],
+  
+      "languages": [
+        "Markdown",
+        "html",
+        "javascript",
+        "css"
+      ],
+  
+      "contact": {
+        "name": "Lauren Privette",
+        "email": "lprivette@usgs.gov"
+      },
+  
+      "date": {
+        "metadataLastUpdated": "2017-11-07"
+      }
+    }
+  ]
+  
