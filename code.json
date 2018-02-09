@@ -18,7 +18,7 @@
   
       "homepageURL": "https://wim.usgs.gov",
       "downloadURL": "https://github.com/USGS-WiM/stn-event-photos/archive/master.zip",
-      "disclaimerURL": "https://github.com/USGS-WiM/stn-event-photos/blob/master/LICENSE.md",
+      "disclaimerURL": "https://github.com/USGS-WiM/stn-event-photos/blob/master/DISCLAIMER.md",
       "repositoryUrl": "https://github.com/USGS-WiM/stn-event-photos",
       "vcs": "git",
   
